@@ -10,7 +10,7 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Content/font-awesome.min.css" rel="stylesheet" />
-    <link href="Content/app.css" rel="stylesheet" />  
+    <link href="Content/app.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -32,9 +32,16 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="default.aspx">Home</a></li>
-                    <li><a href="login.aspx">Log In</a></li>
-                    <li><a href="Register.aspx">Register</a></li> 
+                    <asp:PlaceHolder ID="PublicNavigation" runat="server">
+                        <li id="home_public" runat="server"><a href="default.aspx"> Home</a></li>
+                        <li id="login_public" runat="server"><a href="login.aspx"> Log In</a></li>
+                        <li id="register_public" runat="server"><a href="Register.aspx"> Register</a></li>
+                    </asp:PlaceHolder>
+
+                    <asp:PlaceHolder ID="UserNavigation" runat="server">
+                        <li id="default_user" runat="server"><a href="default.aspx"> Home</a></li>
+                        <li id="logout_user" runat="server"><a href="Logout.aspx"> Logout</a></li>
+                    </asp:PlaceHolder>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

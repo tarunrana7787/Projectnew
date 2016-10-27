@@ -16,10 +16,11 @@ namespace Project
         public void Configuration(IAppBuilder app)
         {
             //Instruct the application that where to go when it starts up for the authentication
+       
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/login.aspx")
+                LoginPath = new PathString("/Login.aspx")
             });
         }
     }

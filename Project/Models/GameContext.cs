@@ -8,22 +8,46 @@ namespace Project.Models
     public partial class GameContext : DbContext
     {
         public GameContext()
-            : base("name=GameConnection")
+            : base("name=GameConnectionNew")
         {
         }
 
-        public virtual DbSet<Table> Tables { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<GameTable> GameTables { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Table>()
-                .Property(e => e.Team1Score)
-                .HasPrecision(18, 0);
+            modelBuilder.Entity<AspNetRole>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
 
-            modelBuilder.Entity<Table>()
-                .Property(e => e.Team2Score)
-                .HasPrecision(18, 0);
+            modelBuilder.Entity<AspNetUser>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUser)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUser>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUser)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<GameTable>()
+                .Property(e => e.Team1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GameTable>()
+                .Property(e => e.Team2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GameTable>()
+                .Property(e => e.GameName)
+                .IsUnicode(false);
 
             modelBuilder.Entity<database_firewall_rules>()
                 .Property(e => e.start_ip_address)
