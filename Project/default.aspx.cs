@@ -28,6 +28,8 @@ namespace Project
                 var gameData = (from eachGame in db.GameTables select eachGame);
                 GameGridView.DataSource = gameData.ToList();
                 GameGridView.DataBind();
+
+
             }
         }
     }
